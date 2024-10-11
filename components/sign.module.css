@@ -1,0 +1,29 @@
+.wrapper{
+    background-color: skyblue;
+    opacity: 0.2;
+    width: 50vh;
+    height: 50vh;
+    border-radius: 5px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30) , 0 15px 12px rgba(0,0,0,0.22);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,.1);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.wrapper:hover{
+    opacity: 1;
+    box-shadow: 0 25px 45px rgba(94, 6, 86, 0.5), 0 20px 25px rgba(120, 0, 150, 0.5);
+
+}
+.head{
+
+    color: black;
+    margin-bottom: 15px;
+}
+.form{
+    margin-left: 50px;
+    margin-right: 50px;
+}
