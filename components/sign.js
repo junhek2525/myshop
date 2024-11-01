@@ -1,10 +1,11 @@
 import styles from "./sign.module.css";
-import { TextField, Fade } from "@mui/material";
-import { use, useState } from "react";
+import { TextField, Fade, button } from "@mui/material";
+import { useState } from "react";
 
 export default function Sign() {
   const [idValue, setIdValue] = useState("");
   const [pwValue, setPwValue] = useState("");
+  const [userNameValue, setUserNameValue] = useState("");
   const [pwCheckValue, setPwCheckValue] = useState("");
   const [showPwField, setShowPwFild] = useState(false);
   const [showPwCheckField, setShowPwCheckField] = useState(false);
@@ -79,6 +80,21 @@ export default function Sign() {
       setPwCheckHelpText("비밀번호가 일치하지 않습니다.")
     }
   }
+  const headleUserNameChange = (event) => {
+      const value = event.target.value
+      setUserNameValue(value);
+      if(value.length>0){
+        setUserNameValue(value);
+      }
+  }
+  const handleSubmit = () => {
+    if(!iderror && !pwerror && !pwCheckError && !userNameValue> 0 && idValue.length > 0)
+    {
+      alert("회원가입")
+    }else{
+      alert("언회원가입")
+    }
+  }
   return (
     <>
       <div className={styles.wrapper}>
@@ -86,6 +102,17 @@ export default function Sign() {
           
           <div className={styles.form}>
           <h2>회원가입</h2>
+          <TextField
+            id="username-required"
+            label="Username"
+            placeholder="닉네임"
+            helperText="사용하실 닉네임을 입력해주세요"
+            value={userNameValue}
+            onChange={headleUserNameChange}
+            fullWidth
+          >
+
+          </TextField>
             <TextField
               // required
               error={iderror}
@@ -128,6 +155,14 @@ export default function Sign() {
                 ></TextField>
               </Fade>
             )}
+            <button
+              variant="outlined"
+              color="primary"
+              fullWidth
+              onClick={handleSubmit}
+              style={{marginTop : '20px'}}
+              >Continue
+            </button>
           </div>
 
         </div>
