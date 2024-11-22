@@ -1,5 +1,5 @@
 import styles from "./sign.module.css";
-import { TextField, Fade, button } from "@mui/material";
+import { TextField, Fade, Button } from "@mui/material";
 import { useState } from "react";
 
 export default function Sign() {
@@ -69,13 +69,14 @@ export default function Sign() {
     // }
   };
   const handlePwCheckChange = (event) => {
+    // 목표 : PwTextField에 있는 값을 가져와서 똑같은지 검사
     const value = event.target.value;
     setPwCheckValue(value);
-
-    if(pwValue == pwCheckValue){
+    
+    if (pwValue == value) {
       setPwCheckError(false)
-      setPwCheckHelpText("1")
-    }else{
+      setPwCheckHelpText("비밀번호가 일치합니다.")
+    } else {
       setPwCheckError(true)
       setPwCheckHelpText("비밀번호가 일치하지 않습니다.")
     }
@@ -87,14 +88,47 @@ export default function Sign() {
         setUserNameValue(value);
       }
   }
-  const handleSubmit = () => {
-    if(!iderror && !pwerror && !pwCheckError && !userNameValue> 0 && idValue.length > 0)
-    {
-      alert("회원가입")
-    }else{
-      alert("언회원가입")
+  const handleSubmit =async () => {
+
+    try{
+      const response = await fetch("/api/register",{
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json",
+        },
+        body : JSON.stringify({
+          username : userNameValue,
+          userId : idValue,
+          password : pwValue,
+        }),
+      });
+      const data = await response.json();
+      if(response.ok){
+        alert("회원가입 완료");
+      }else{
+        alert("회원가입 실패");
+      }
+    } catch (error){
+      console.log("회원가입 실패:",error);
     }
-  }
+
+
+
+
+
+
+
+
+
+
+
+    // if(!iderror && !pwerror && !pwCheckError && !userNameValue> 0 && idValue.length > 0)
+    // {
+    //   alert("회원가입")
+    // }else{
+    //   alert("언회원가입")
+    // }
+  };
   return (
     <>
       <div className={styles.wrapper}>
@@ -155,14 +189,14 @@ export default function Sign() {
                 ></TextField>
               </Fade>
             )}
-            <button
+            <Button
               variant="outlined"
               color="primary"
               fullWidth
               onClick={handleSubmit}
               style={{marginTop : '20px'}}
               >Continue
-            </button>
+            </Button>
           </div>
 
         </div>
